@@ -45,8 +45,18 @@ function Upload({ setResults }) {
       formData.append("textbook", tbFile, tbFile.name);
       formData.append("study_guide", sgFile, sgFile.name);
       const res = await axios.post(API + "/upload", formData);
-      const d = res.data;
+
+      const all = [];
+      const d = res.data.heatmap.forEach(arr => {
+        all.append(...arr.map(d => 
+          ({ sim: d[0], text: d[1] })
+        ))
+      });
       console.log({d});
+
+      setResults(all);
+
+      // setResults(d)
     } catch (err) {
       alert(err);
     }

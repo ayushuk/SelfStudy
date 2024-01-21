@@ -7,38 +7,33 @@ function App() {
   const [results, setResults] = useState();
 
   useEffect(() => {
-    setResults([
+    setResults(
       {
-        question: "this is question",
-        results: [
-          {
-            text: "this is text.",
-            source: "page 10",
-            heat: 10,
-          },
-          {
-            text: "this is text.",
-            source: "page 10",
-            heat: 1,
-          }
-        ]
-      },
-      {
-        question: "this is question",
-        results: [
-          {
-            text: "this is text.",
-            source: "page 10",
-            heat: 10,
-          },
-          {
-            text: "this is text.",
-            source: "page 10",
-            heat: 6,
-          }
+        annotated_textbook: "https://google.com",
+        list: [
+              {
+                text: "this is text.",
+                source: 10,
+                heat: 0.8,
+              },
+              {
+                text: "this is text.",
+                source: 11,
+                heat: 0.9,
+              },
+              {
+                text: "this is text.",
+                source: 101,
+                heat: 1,
+              },
+              {
+                text: "this is text.",
+                source: 130,
+                heat: 6,
+              }
         ]
       }
-    ])
+    )
   }, [])
 
   return (
