@@ -1,76 +1,31 @@
-import { Button, Card } from '@mui/material';
 import React from 'react';
+import { Card } from '@mui/material';
 
-interface Props {
-    inputFile: File | undefined;
-}
-
-export function Heatmap({ inputFile }: Props) {
-    function readFile(file: File | undefined) {
-        if (!file) {
-            console.error('no file');
-            return;
-        }
-
-        const reader = new FileReader();
-        reader.onload = (evt: ProgressEvent<FileReader>) => {
-            console.log(evt.target!.result);
-        };
-        const text = reader.readAsText(file);
-        console.log(text)
-    }
-
-    const ls = [
-        {
-            question: "this is question",
-            results: [
-                {
-                    text: "this is text.",
-                    source: "page 10",
-                    heat: 10,
-                },
-                {
-                    text: "this is text.",
-                    source: "page 10",
-                    heat: 1,
-                }
-            ]
-        },
-        {
-            question: "this is question",
-            results: [
-                {
-                    text: "this is text.",
-                    source: "page 10",
-                    heat: 10,
-                },
-                {
-                    text: "this is text.",
-                    source: "page 10",
-                    heat: 1,
-                }
-            ]
-        }
-    ]
-
-    const getColor = (heat: number) => {
-        return heat >= 10 ? "red"
-            : heat >= 6 ? "orange"
-                : heat >= 3 ? "yellow"
-                    : "black"
+export function Heatmap({ results }) {
+    const getColor = (heat) => {
+        return heat >= 10 ? "rgba(255,0,0)"
+            : heat >= 5 ? "rgba(255,120,25)"
+                : "rgb(255,255,50)"
+    };
+    const getBgColor = (heat) => {
+        return heat >= 10 ? "rgba(255,0,0,0.1)"
+            : heat >= 5 ? "rgba(255,120,25,0.15)"
+                : "rgb(255,255,50,0.2)"
     };
 
     return (
         <>
             <div
                 style={{
-                    fontSize: "30px"
+                    fontSize: "26px"
                 }}
             >
-                Your Results
+                See Your Results
             </div>
 
-            {ls.map(d => (
+            {!results && <div>Please upload course material and click generate to view results</div>}
+
+            {results?.map(d => (
                 <Card
                     style={{
                         display: "flex",
@@ -110,7 +65,9 @@ export function Heatmap({ inputFile }: Props) {
                                 style={{
                                     display: "flex",
                                     justifyContent: "space-between",
-                                    width: "100%"
+                                    width: "100%",
+                                    background: getBgColor(r.heat),
+                                    borderRadius: "8px"
                                 }}
                             >
                                 <div
