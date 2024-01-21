@@ -98,6 +98,7 @@ function Upload({ setResults }) {
           variant="outlined"
           size="large"
           onClick={submit}
+          disabled={!tbFile || !sgFile}
         >
           Generate Results
         </Button>
