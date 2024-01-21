@@ -1,8 +1,7 @@
-import React, { useState, ChangeEvent } from 'react';
+import React, { useState } from 'react';
 import './App.css';
 import { Grid, Button, Box, InputProps } from '@mui/material';
 import { Heatmap } from './Heatmap';
-import Dropzone, { DropEvent, FileRejection } from 'react-dropzone';
 
 function App() {
 
@@ -10,15 +9,15 @@ function App() {
   const [examFile, setExamFile] = useState<File | undefined>(undefined);
 
   // file upload function
-  function studyFileUpload(acceptedFiles: File[], fileRejections: FileRejection[], event: DropEvent) {
-    const selectedFile = acceptedFiles[0];
+  function studyFileUpload(event: React.ChangeEvent<HTMLInputElement>) {
+    const selectedFile = event.target.files?.[0];
     if (selectedFile) {
       setStudyFile(selectedFile);
     }
   }
 
-  function testFileUpload(acceptedFiles: File[], fileRejections: FileRejection[], event: DropEvent) {
-    const selectedFile = acceptedFiles[0];
+  function testFileUpload(event: React.ChangeEvent<HTMLInputElement>) {
+    const selectedFile = event.target.files?.[0];
     if (selectedFile) {
       setExamFile(selectedFile);
     }
@@ -69,33 +68,25 @@ function App() {
       <Grid container className='grid' spacing={2}>
         <Grid item xs={4}>
           <Box className='gridBox'>
-            <div>Upload Study Materials</div>
-            <Dropzone onDrop={studyFileUpload} >
-              {({ getRootProps, getInputProps }) => (
-                <Box className='uploadBox' {...getRootProps()}>
-                  <input {...getInputProps()} />
-                  <p>{studyFile ? 'File Uploaded' : '+'}</p>
-                </Box>
-              )}
-            </Dropzone>
+            <Box className='uploadBox'><input type='file' onChange={studyFileUpload}></input></Box>
             <Box className='uploadButtonBox'>
-              <Button variant="contained" >Upload</Button>
+              <Button variant="contained" >Upload Study Materials</Button>
             </Box>
           </Box>
         </Grid>
         <Grid item xs={4}>
           <Box className='gridBox'>
-            <div>Upload Exam</div>
-            <Dropzone onDrop={testFileUpload}>
-              {({ getRootProps, getInputProps }) => (
-                <Box className='uploadBox' {...getRootProps()}>
-                  <input {...getInputProps()} />
-                  <p>{examFile ? 'File Uploaded' : '+'}</p>
-                </Box>
-              )}
-            </Dropzone>
+            <Box className='uploadBox'><input type='file' onChange={testFileUpload}></input></Box>
             <Box className='uploadButtonBox'>
-              <Button variant="contained" >Upload</Button>
+              <Button variant="contained">Upload Practice Exam</Button>
+            </Box>
+          </Box>
+        </Grid>
+        <Grid item xs={4}>
+          <Box className='gridBox'>
+            <Box className='uploadBox'><input type='file'></input></Box>
+            <Box className='uploadButtonBox'>
+              <Button variant="contained" onClick={processFiles}>Download result</Button>
             </Box>
           </Box>
         </Grid>

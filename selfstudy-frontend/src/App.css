@@ -5,23 +5,17 @@
   sx {
     width: 1;
   }
-
-  padding-top: 50px;
 }
 
 .gridBox {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  width: 150px;
-  height: 150px;
-  align-items: center;
+  margin: 50px;
+  align-items: 'center';
 }
 
 .uploadBox {
   margin: 50px;
-  padding: 50px;
-  border: 1px dotted black;
+  height: 100px;
+  padding-top: 200px;
 }
 
 .uploadButtonBox {
