@@ -33,7 +33,7 @@ function App() {
           rej(e)
         }
       };
-      const text = reader.readAsText(file);
+      reader.readAsText(file);
     })
   }
 
@@ -50,10 +50,21 @@ function App() {
 
     const studyTxt = await readFile(studyFile);
     const examTxt = await readFile(examFile);
+    console.log({
+      studyTxt,
+      examTxt
+    })
   }
 
   return (
-    <div>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        padding: "20px",
+        gap: "20px"
+      }}
+    >
       <Grid container className='grid' spacing={2}>
         <Grid item xs={4}>
           <Box className='gridBox'>
